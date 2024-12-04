@@ -12,12 +12,12 @@ struct CalendarView: View {
     let selectedDate: Date
     
     var body: some View {
-        let daysInMonth = DateManager.daysInMonth(date: selectedDate) // Numero di giorni del mese corrente
-        let days = Array(1...daysInMonth) // Crea una lista dei giorni del mese
+        let daysInMonth = DateManager.daysInMonth(date: selectedDate) // Number of days of the current month
+        let days = Array(1...daysInMonth) // Array of days
         
         // Calendar Grid
         LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 5), spacing: 20) {
-            // Riempie con spazi vuoti per allineare il primo giorno del mese
+            // Grid used to spawn buttons for accessing the day
             ForEach(1..<daysInMonth, id: \.self) { day in
                 if day == 0 {
                     ForEach(1..<(calendar.component(.weekday, from: selectedDate)), id: \.self) { _ in

@@ -13,9 +13,9 @@ import SwiftUI
 extension UITabBar {
     static func setTransparentTabBar() {
         let appearance = UITabBarAppearance()
-        appearance.configureWithTransparentBackground() // Sfondo trasparente
+        appearance.configureWithTransparentBackground() // Transparent background
         appearance.backgroundColor = UIColor.clear
-        appearance.shadowImage = UIImage() // Rimuove l'ombra
+        appearance.shadowImage = UIImage() // No shadow
         appearance.shadowColor = nil
         
         UITabBar.appearance().scrollEdgeAppearance = appearance

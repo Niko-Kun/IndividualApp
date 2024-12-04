@@ -15,7 +15,7 @@ struct HomeView: View {
     var body: some View {
         ScrollView {
             VStack {
-                // Dove viene visualizzato il mese corrente
+                // Visualize the month on top of the screen
                 HStack {
                     Text(DateManager.formatter_mm_yy(date: selectedDate))
                         .font(.system(size: 18))
