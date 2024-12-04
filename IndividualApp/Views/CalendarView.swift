@@ -27,6 +27,7 @@ struct CalendarView: View {
                 }
             }
             
+            // Need to change circles to actual buttons or navLinks
             ForEach(days, id: \.self) { day in
                 Circle()
                     .stroke(Color.gray, lineWidth: 1)
