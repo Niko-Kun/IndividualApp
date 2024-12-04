@@ -32,19 +32,19 @@ struct HomeView: View {
                     CalendarView(selectedDate: selectedDate)
                 }
                 .sheet(isPresented: $isPickerPresented) {
-                    // Contenuto della sheet: Picker per mese e anno
+                    // Sheet: picker for month and year
                     VStack {
                         DatePicker(
                             "",
                             selection: $selectedDate,
                             displayedComponents: [.date]
                         )
-                        .datePickerStyle(.wheel) // Usa stile grafico
-                        .labelsHidden() // Nasconde le etichette
-                        .environment(\.locale, Locale(identifier: "en_EN")) // Lingua italiana
+                        .datePickerStyle(.wheel)
+                        .labelsHidden()
+                        .environment(\.locale, Locale(identifier: "en_EN"))
                         
                         Button("Chiudi") {
-                            isPickerPresented = false // Chiudi la sheet
+                            isPickerPresented = false
                         }
                         .padding()
                     }
