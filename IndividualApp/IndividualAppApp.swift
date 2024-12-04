@@ -9,6 +9,10 @@ import SwiftUI
 
 @main
 struct IndividualAppApp: App {
+    init() {
+        UITabBar.setTransparentTabBar()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ToolbarView()

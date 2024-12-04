@@ -8,26 +8,41 @@
 
 import SwiftUI
 
+import SwiftUI
+
+extension UITabBar {
+    static func setTransparentTabBar() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithTransparentBackground() // Sfondo trasparente
+        appearance.backgroundColor = UIColor.clear
+        appearance.shadowImage = UIImage() // Rimuove l'ombra
+        appearance.shadowColor = nil
+        
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+        UITabBar.appearance().standardAppearance = appearance
+    }
+}
+
 struct ToolbarView: View {
     var body: some View {
         VStack {
             TabView(selection: .constant(0)) {
-                EmptyView()
+                HomeView()
                     .tabItem {
                         Image(systemName: "house")
                         Text("")
                     }
-                EmptyView()
+                HomeView()
                     .tabItem {
-                        Image(systemName: "magnifyingglass")
+                        Image(systemName: "plus.circle")
                         Text("")
                     }
-                EmptyView()
+                HomeView()
                     .tabItem {
-                        Image(systemName: "plus")
+                        Image(systemName: "chart.dots.scatter")
                         Text("")
                     }
-            }
+            }.accentColor(.purple)
         }
     }
 }
