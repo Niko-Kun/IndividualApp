@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     let calendar = Calendar.current
     @State private var selectedDate = Date()
-    @State private var isPickerPresented = false
+//    @State private var isPickerPresented = false
     
     var body: some View {
         ScrollView {
@@ -22,33 +22,33 @@ struct HomeView: View {
                         .multilineTextAlignment(.center)
                         .bold()
                         .textCase(.uppercase)
-                        .onTapGesture {
-                            isPickerPresented.toggle()
-                        }
+//                        .onTapGesture {
+//                            isPickerPresented.toggle()
+//                        }
                 }
                 .padding(.horizontal)
                 
                 CalendarView(selectedDate: selectedDate)
             }
-            .sheet(isPresented: $isPickerPresented) {
-                // Contenuto della sheet: Picker per mese e anno
-                VStack {
-                    DatePicker(
-                        "",
-                        selection: $selectedDate,
-                        displayedComponents: [.date]
-                    )
-                    .datePickerStyle(.wheel) // Usa stile grafico
-                    .labelsHidden() // Nasconde le etichette
-                    .environment(\.locale, Locale(identifier: "it_IT")) // Lingua italiana
-                    
-                    Button("Chiudi") {
-                        isPickerPresented = false // Chiudi la sheet
-                    }
-                    .padding()
-                }
-                .presentationDetents([.medium, .fraction(0.7)])
-            }
+//            .sheet(isPresented: $isPickerPresented) {
+//                // Contenuto della sheet: Picker per mese e anno
+//                VStack {
+//                    DatePicker(
+//                        "",
+//                        selection: $selectedDate,
+//                        displayedComponents: [.date]
+//                    )
+//                    .datePickerStyle(.wheel) // Usa stile grafico
+//                    .labelsHidden() // Nasconde le etichette
+//                    .environment(\.locale, Locale(identifier: "en_EN")) // Lingua italiana
+//                    
+//                    Button("Chiudi") {
+//                        isPickerPresented = false // Chiudi la sheet
+//                    }
+//                    .padding()
+//                }
+//                .presentationDetents([.medium, .fraction(0.7)])
+//            }
         }
     }
 }

@@ -21,7 +21,7 @@ class DateManager {
         let formatterDate = DateFormatter()
         
         formatterDate.dateFormat = "yyyy\nMMMM"
-        formatterDate.locale = Locale(identifier: "it_IT")
+        formatterDate.locale = Locale(identifier: "en_EN")
         
         let dateString = formatterDate.string(from: date)
         return dateString
