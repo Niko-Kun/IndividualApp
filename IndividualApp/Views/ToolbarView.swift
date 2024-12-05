@@ -21,25 +21,45 @@ extension UITabBar {
 }
 
 struct ToolbarView: View {
+    @State private var showModal = false
+    @State private var selectedTab = 0
+    
+    init() {
+        UITabBar.setTransparentTabBar()
+    }
+    
     var body: some View {
         VStack {
-            TabView(selection: .constant(0)) {
+            TabView(selection: $selectedTab) {
                 HomeView()
                     .tabItem {
                         Image(systemName: "house")
                         Text("")
                     }
+                    .tag(0)
                 HomeView()
                     .tabItem {
                         Image(systemName: "plus.circle")
                         Text("")
                     }
+                    .tag(1)
                 HomeView()
                     .tabItem {
                         Image(systemName: "chart.dots.scatter")
                         Text("")
                     }
-            }.accentColor(.purple)
+                    .tag(2)
+            }
+            .accentColor(.purple)
+            .onChange(of: selectedTab) { newValue in
+                if newValue == 1 {
+                    showModal = true
+                    selectedTab = 0
+                }
+            }
+            .sheet(isPresented: $showModal) {
+                AddDayView(add: {day in}, showModal: $showModal)
+            }
         }
     }
 }

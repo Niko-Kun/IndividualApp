@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct DayDetailsView: View {
-    @State private var notes: String = ""
+    let notes : String = ""
     
-    @State private var selectedMood = 0
-    let options = ["☹️", "😐", "🙂", "😁", "🥰"]
+    @State private var selectedMood = Emotion.sad
     
     var body: some View {
         NavigationStack {
@@ -25,11 +24,12 @@ struct DayDetailsView: View {
                         .shadow(radius: 10)
                     
                     Picker("Mood of today", selection: $selectedMood) {
-                        ForEach(0..<options.count, id: \.self) { index in
-                            Text(options[index])
+                        ForEach(Emotion.allCases, id: \.self) { emotion in
+                            Text(emotion.rawValue)
                         }
                     }
                     .pickerStyle(.segmented)
+                    .disabled(true)
                     .shadow(radius: 10)
                     .frame(width: 350, height: 100)
                 }
@@ -41,9 +41,10 @@ struct DayDetailsView: View {
                         .foregroundStyle(.gray)
                         .shadow(radius: 10)
                     
-                    TextField("How are you feeling today?", text: $notes)
+                    Text(notes)
                         .bold()
                         .multilineTextAlignment(.center)
+                        .padding()
                 }
                 
                 ZStack {
@@ -55,9 +56,6 @@ struct DayDetailsView: View {
                     
                     ImagePickerView()
                 }
-                
-                Spacer()
-                
             }
         }
         .navigationBarHidden(true)

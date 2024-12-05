@@ -28,8 +28,10 @@ struct Toolbar: View {
             }) {
                 HStack {
                     Image(systemName: "chevron.left")
+                        .foregroundStyle(.purple)
                     Text("Back")
                         .font(.system(size: 18))
+                        .foregroundStyle(.purple)
                 }
                 .frame(maxWidth: dimBackButtom)
             }
