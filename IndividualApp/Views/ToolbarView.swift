@@ -58,7 +58,7 @@ struct ToolbarView: View {
                 }
             }
             .sheet(isPresented: $showModal) {
-                AddDayView(add: {day in}, showModal: $showModal)
+                AddDayView(showModal: $showModal)
             }
         }
     }

@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
+import SwiftData
 
+@Model
 class Day: Identifiable {
     
     var id : UUID = UUID()

@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddDayView: View {
+    
+    @Environment(\.modelContext) private var context
+    
     var day : Day? = nil
-    var add : (_ day: Day) -> Void
     
     @State private var whatDay : String = ""
     @State private var whatMonth : String = ""
@@ -75,14 +78,8 @@ struct AddDayView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Add") {
                         
-                        let newDay = Day(
-                            emotion: selectedMood.rawValue,
-                            whatDay: whatDay,
-                            whatMonth: whatMonth,
-                            whatYear: whatYear,
-                            notes : notes)
+                        addDay()
                         
-                        add(newDay)
                         showModal = false
                     }
                     .foregroundStyle(.purple)
@@ -91,11 +88,22 @@ struct AddDayView: View {
             }
         }
     }
+    
+    func addDay() {
+        // Create the variable
+        let newDay = Day(
+            emotion: selectedMood.rawValue,
+            whatDay: whatDay,
+            whatMonth: whatMonth,
+            whatYear: whatYear,
+            notes : notes)
+        
+        // Add to the DB
+        context.insert(newDay)
+    }
+
 }
 
 #Preview {
-    AddDayView(
-        add: {day in },
-        showModal: .constant(true)
-    )
+    AddDayView(showModal: .constant(true))
 }

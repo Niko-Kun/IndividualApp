@@ -6,9 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
+import Foundation
 
 struct DayDetailsView: View {
+    
+    @Environment(\.modelContext) private var context
+    
+    @Query private var days: [Day]
+    
     let notes : String = ""
+    let today = Calendar.current.component(.day, from: Date())
     
     @State private var selectedMood = Emotion.sad
     

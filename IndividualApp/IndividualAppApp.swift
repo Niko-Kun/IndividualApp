@@ -13,6 +13,8 @@ struct IndividualAppApp: App {
     var body: some Scene {
         WindowGroup {
             ToolbarView()
+                .preferredColorScheme(.light)
         }
+        .modelContainer(for: Day.self)
     }
 }
