@@ -17,10 +17,9 @@ struct AddDayView: View {
     @State private var whatDay : String = ""
     @State private var whatMonth : String = ""
     @State private var whatYear : String = ""
+    @State private var notes : String = ""
     
-    @State var notes : String = ""
-    
-    @State private var selectedMood = Emotion.sad
+    @State private var selectedMood: Emotion = .normal
     
     @Binding var showModal: Bool
     
@@ -79,7 +78,6 @@ struct AddDayView: View {
                     Button("Add") {
                         
                         addDay()
-                        
                         showModal = false
                     }
                     .foregroundStyle(.purple)
@@ -92,14 +90,16 @@ struct AddDayView: View {
     func addDay() {
         // Create the variable
         let newDay = Day(
-            emotion: selectedMood.rawValue,
+            date: Date(),
+            emotion: selectedMood,
             whatDay: whatDay,
             whatMonth: whatMonth,
             whatYear: whatYear,
-            notes : notes)
+            notes: notes)
         
         // Add to the DB
         context.insert(newDay)
+        print("Day added")
     }
 
 }

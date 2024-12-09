@@ -7,18 +7,22 @@
 
 import SwiftUI
 import SwiftData
+import Foundation
 
 @Model
 class Day: Identifiable {
     
     var id : UUID = UUID()
-    var emotion : String = Emotion.normal.rawValue
+    var date: Date
+    var emotion : Emotion
     var whatDay : String = "Today"
     var whatMonth : String = "December"
     var whatYear : String = "2024"
-    var notes : String = ""
+    var notes : String? = ""
     
-    init(emotion: String, whatDay: String, whatMonth: String, whatYear: String, notes: String) {
+    init(date: Date, emotion: Emotion, whatDay: String, whatMonth: String, whatYear: String, notes: String? = "") {
+        self.id = UUID()
+        self.date = date
         self.emotion = emotion
         self.whatDay = whatDay
         self.whatMonth = whatMonth
@@ -27,7 +31,7 @@ class Day: Identifiable {
     }
 }
 
-enum Emotion: String, CaseIterable {
+enum Emotion: String, CaseIterable, Codable {
     case sad = "☹️"
     case meh = "😐"
     case normal = "🙂"

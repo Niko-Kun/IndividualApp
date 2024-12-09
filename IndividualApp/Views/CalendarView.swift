@@ -29,7 +29,7 @@ struct CalendarView: View {
                 }
                 
                 ForEach(days, id: \.self) { day in
-                    NavigationLink(destination: DayDetailsView()) {
+                    NavigationLink(destination: DayDetailsView(selectedDate: selectedDate)) {
                         Circle()
                             .stroke(Color.gray, lineWidth: 2)
                             .frame(width: 60, height: 60)
@@ -43,6 +43,11 @@ struct CalendarView: View {
                 }
             }
             .padding()
+        }
+        .onAppear {
+            // Verifica i dati e confronta le date
+            print("calendar:", calendar)
+            print("selected date:", DateManager.formattedDate(selectedDate))
         }
     }
 }
