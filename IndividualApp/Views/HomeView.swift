@@ -12,6 +12,8 @@ struct HomeView: View {
     @State private var selectedDate = Date()
     @State private var isPickerPresented = false
     
+    @State private var showModal = false
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -19,6 +21,7 @@ struct HomeView: View {
                     // Visualize the month on top of the screen
                     HStack {
                         Text(DateManager.formatter_mm_yy(date: selectedDate))
+                            .padding(.top, -40)
                             .font(.system(size: 18))
                             .multilineTextAlignment(.center)
                             .bold()
@@ -51,7 +54,20 @@ struct HomeView: View {
                     .presentationDetents([.medium, .fraction(0.7)])
                 }
             }
+            .navigationBarItems(
+                trailing: Button(action: {
+                    showModal = true
+                }) {
+                    Text(Image(systemName: "plus"))
+                        .bold()
+                        .foregroundStyle(.purple)
+                })
+            .sheet(isPresented: $showModal) {
+                AddDayView(showModal: $showModal)
+            }
+
         }
+        
     }
 }
 

@@ -39,5 +39,12 @@ class DateManager {
         formatter.timeStyle = .none
         return formatter.string(from: date)
     }
+    
+    static func createDate(day: Int, from baseDate: Date) -> Date {
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month], from: baseDate) // Select current month and year
+        components.day = day // Set the selected day
+        return calendar.date(from: components) ?? baseDate
+    }
 }
 

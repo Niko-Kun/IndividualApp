@@ -97,9 +97,12 @@ struct AddDayView: View {
             whatYear: whatYear,
             notes: notes)
         
-        // Add to the DB
+        // Add to the local data
         context.insert(newDay)
         print("Day added")
+        print("Day", whatDay)
+        print("Month:", whatMonth)
+        print("Year: ", whatYear)
     }
 
 }

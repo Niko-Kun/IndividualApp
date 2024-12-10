@@ -24,6 +24,9 @@ struct DayDetailsView: View {
         NavigationStack {
             ScrollView {
                 VStack {
+                    
+                    Spacer()
+                    
                     Toolbar()
                     
                     Spacer()
@@ -72,7 +75,7 @@ struct DayDetailsView: View {
                             .foregroundStyle(.gray)
                             .shadow(radius: 10)
                         
-                        Text(days.first?.notes ?? "Nessuna nota disponibile")
+                        Text(days.first?.notes ?? "No notes today")
                             .bold()
                             .multilineTextAlignment(.center)
                             .padding()
@@ -86,8 +89,8 @@ struct DayDetailsView: View {
                             .shadow(radius: 10)
                         
                         ImagePickerView()
+                            .disabled(true)
                     }
-                    Spacer()
                 }
             }
         }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct CalendarView: View {
     let calendar = Calendar.current
@@ -29,7 +30,10 @@ struct CalendarView: View {
                 }
                 
                 ForEach(days, id: \.self) { day in
-                    NavigationLink(destination: DayDetailsView(selectedDate: selectedDate)) {
+                    // Concatenate the date of the created day
+                    let selectedDayDate = DateManager.createDate(day: day, from: selectedDate)
+                    
+                    NavigationLink(destination: DayDetailsView(selectedDate: selectedDayDate)) {
                         Circle()
                             .stroke(Color.gray, lineWidth: 2)
                             .frame(width: 60, height: 60)
@@ -43,11 +47,6 @@ struct CalendarView: View {
                 }
             }
             .padding()
-        }
-        .onAppear {
-            // Verifica i dati e confronta le date
-            print("calendar:", calendar)
-            print("selected date:", DateManager.formattedDate(selectedDate))
         }
     }
 }
