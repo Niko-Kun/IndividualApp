@@ -55,6 +55,7 @@ struct CalendarView: View {
                                         .font(.body)
                                         .foregroundColor(.black)
                                 )
+                                .accessibilityLabel("Day \(day)")
                         }
                         .buttonStyle(PlainButtonStyle())
                     }

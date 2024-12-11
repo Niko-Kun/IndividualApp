@@ -56,6 +56,7 @@ struct AddDayView: View {
                         .multilineTextAlignment(.center)
                         .frame(width: 360, height: 240, alignment: .center)
                         .colorMultiply(Color(.systemGray6))
+                        .accessibilityLabel("Add Text")
                 }
                 
                 ZStack {
@@ -65,6 +66,7 @@ struct AddDayView: View {
                         .foregroundStyle(Color(.systemGray6))
                     
                     ImagePickerView()
+                        .accessibilityLabel("Add an Image (optional)")
                 }
             }.onAppear {
                 let currentDate = Date()
@@ -108,10 +110,10 @@ struct AddDayView: View {
         
         // Add to the local data
         context.insert(newDay)
-        print("Day added")
-        print("Day", whatDay)
-        print("Month:", whatMonth)
-        print("Year: ", whatYear)
+//        print("Day added")
+//        print("Day", whatDay)
+//        print("Month:", whatMonth)
+//        print("Year: ", whatYear)
     }
     
 }

@@ -100,10 +100,10 @@ struct DayDetailsView: View {
             }
         }
         .navigationBarHidden(true)
-        .onAppear {
-            // Verifica i dati e confronta le date
-            print("Selected date:", DateManager.formattedDate(selectedDate))
-        }
+//        .onAppear {
+//            // Verifica i dati e confronta le date
+//            print("Selected date:", DateManager.formattedDate(selectedDate))
+//        }
         
     }
     
