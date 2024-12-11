@@ -57,7 +57,7 @@ struct Toolbar: View {
                     .frame(maxWidth: dimBackButtom) // Larghezza del pulsante "Back" per bilanciare
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: 30)
+        .frame(maxWidth: .infinity)
         .padding(.horizontal, 10)
         
     }

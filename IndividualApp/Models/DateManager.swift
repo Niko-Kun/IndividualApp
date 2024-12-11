@@ -8,6 +8,7 @@
 import Foundation
 
 class DateManager {
+    
     // How many days in this month
     static func daysInMonth(date: Date) -> Int {
         let calendar = Calendar.current
@@ -40,6 +41,7 @@ class DateManager {
         return formatter.string(from: date)
     }
     
+    // Function that takes the index of the day and the year and month of the current date
     static func createDate(day: Int, from baseDate: Date) -> Date {
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month], from: baseDate) // Select current month and year

@@ -16,8 +16,6 @@ struct DayDetailsView: View {
     
     let selectedDate: Date
     
-    var filteredDay = Calendar.current.component(.day, from: Date())
-    
     @State private var selectedMood: Emotion = .normal
     
     var body: some View {
@@ -26,24 +24,19 @@ struct DayDetailsView: View {
                 VStack {
                     
                     Spacer()
-                    
                     Toolbar()
-                    
-                    Spacer()
                     
                     Text(DateManager.formatter_dd_mm_yy(selectedDate))
                         .bold()
                         .frame(width: 170, height: 40)
+                        .padding(5)
                         .multilineTextAlignment(.center)
-                    
-                    Spacer()
                     
                     ZStack {
                         Rectangle()
                             .cornerRadius(20)
                             .frame(width: 370, height: 100)
-                            .foregroundStyle(.gray)
-                            .shadow(radius: 10)
+                            .foregroundStyle(Color(.systemGray6))
                         
                         Picker("Mood of today", selection: $selectedMood) {
                             ForEach(Emotion.allCases, id: \.self) { emotion in
@@ -52,60 +45,71 @@ struct DayDetailsView: View {
                         }
                         .pickerStyle(.segmented)
                         .disabled(true)
-                        .shadow(radius: 10)
                         .frame(width: 350, height: 100)
                         .onAppear {
                             // Default Emotion
-                            if let firstEmotion = days.first?.emotion {
-                                selectedMood = firstEmotion
-                            }
-                        }
-                        .onChange(of: selectedMood) { newValue in
-                            // Update Emotion
-                            if let firstDay = days.first {
-                                firstDay.emotion = newValue
+                            if let dayForSelectedDate = days.first(where: { day in
+                                Calendar.current.isDate(day.date, inSameDayAs: selectedDate)
+                            }) {
+                                selectedMood = dayForSelectedDate.emotion
                             }
                         }
                     }
-                    
-                    ZStack {
-                        Rectangle()
-                            .cornerRadius(20)
-                            .frame(width: 370, height: 250)
-                            .foregroundStyle(.gray)
-                            .shadow(radius: 10)
-                        
-                        Text(days.first?.notes ?? "No notes today")
-                            .bold()
-                            .multilineTextAlignment(.center)
-                            .padding()
-                    }
-                    
-                    ZStack {
-                        Rectangle()
-                            .cornerRadius(20)
-                            .frame(width: 370, height: 270)
-                            .foregroundStyle(.gray)
-                            .shadow(radius: 10)
-                        
-                        ImagePickerView()
-                            .disabled(true)
+                    .onChange(of: selectedMood) { newValue in
+                        if let index = days.firstIndex(where: { day in
+                            Calendar.current.isDate(day.date, inSameDayAs: selectedDate)
+                        }) {
+                            days[index].emotion = newValue
+                            // Persisti il cambiamento nel database se necessario
+                            do {
+                                try context.save()
+                            } catch {
+                                print("Errore durante il salvataggio: \(error.localizedDescription)")
+                            }
+                        }
                     }
                 }
+                
+                ZStack {
+                    Rectangle()
+                        .cornerRadius(20)
+                        .frame(width: 370, height: 250)
+                        .foregroundStyle(Color(.systemGray6))
+                    
+                    Text(days.first(where: { day in
+                        Calendar.current.isDate(day.date, inSameDayAs: selectedDate)
+                    })?.notes ?? "No notes today")
+                        .bold()
+                        .multilineTextAlignment(.center) // Allinea il testo al centro
+                        .lineLimit(nil) // Permetti linee multiple
+                        .padding()
+                        .frame(maxWidth: 360, maxHeight: 240)
+                }
+                
+                ZStack {
+                    Rectangle()
+                        .cornerRadius(20)
+                        .frame(width: 370, height: 270)
+                        .foregroundStyle(Color(.systemGray6))
+                    
+                    ImagePickerView()
+                        .disabled(true)
+                }
+                
+                Spacer()
             }
         }
         .navigationBarHidden(true)
         .onAppear {
             // Verifica i dati e confronta le date
             print("Selected date:", DateManager.formattedDate(selectedDate))
-            if filteredDay != nil {
-                print("Filtered day found:", filteredDay)
-            } else {
-                print("No matching day found.")
-            }
         }
+        
     }
+    
 }
+
+
 
 #Preview {
     DayDetailsView(selectedDate: Date())

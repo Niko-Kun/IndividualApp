@@ -26,12 +26,16 @@ struct AddDayView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                
+                Text("Talk about your Day!")
+                    .font(.title2)
+                    .bold()
+                
                 ZStack {
                     Rectangle()
                         .cornerRadius(20)
                         .frame(width: 370, height: 100)
-                        .foregroundStyle(.gray)
-                        .shadow(radius: 10)
+                        .foregroundStyle(Color(.systemGray6))
                     
                     Picker("Mood of today", selection: $selectedMood) {
                         ForEach(Emotion.allCases, id: \.self) { emotion in
@@ -39,7 +43,6 @@ struct AddDayView: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                    .shadow(radius: 10)
                     .frame(width: 350, height: 100)
                 }
                 
@@ -47,21 +50,19 @@ struct AddDayView: View {
                     Rectangle()
                         .cornerRadius(20)
                         .frame(width: 370, height: 250)
-                        .foregroundStyle(.gray)
-                        .shadow(radius: 10)
+                        .foregroundStyle(Color(.systemGray6))
                     
-                    TextField("How are you feeling today?", text: $notes)
-                        .bold()
+                    TextEditor(text: $notes)
                         .multilineTextAlignment(.center)
-                        .frame(width: 350, height: 250)
+                        .frame(width: 360, height: 240, alignment: .center)
+                        .colorMultiply(Color(.systemGray6))
                 }
                 
                 ZStack {
                     Rectangle()
                         .cornerRadius(20)
                         .frame(width: 370, height: 300)
-                        .foregroundStyle(.gray)
-                        .shadow(radius: 10)
+                        .foregroundStyle(Color(.systemGray6))
                     
                     ImagePickerView()
                 }
@@ -88,9 +89,17 @@ struct AddDayView: View {
     }
     
     func addDay() {
+        let calendar = Calendar.current
+        var components = DateComponents()
+        components.day = Int(whatDay)
+        components.month = Int(whatMonth)
+        components.year = Int(whatYear)
+        
+        let dayDate = calendar.date(from: components)
+        
         // Create the variable
         let newDay = Day(
-            date: Date(),
+            date: dayDate ?? Date(),
             emotion: selectedMood,
             whatDay: whatDay,
             whatMonth: whatMonth,
@@ -104,7 +113,7 @@ struct AddDayView: View {
         print("Month:", whatMonth)
         print("Year: ", whatYear)
     }
-
+    
 }
 
 #Preview {
