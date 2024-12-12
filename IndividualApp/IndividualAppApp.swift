@@ -9,12 +9,10 @@ import SwiftUI
 import SwiftData
 
 @main
-struct IndividualAppApp: App {
-    @Query private var days: [Day]
-    
+struct IndividualAppApp: App {    
     var body: some Scene {
         WindowGroup {
-            ToolbarView(data: days)
+            ToolbarView()
                 .preferredColorScheme(.light)
         }
         .modelContainer(for: Day.self)

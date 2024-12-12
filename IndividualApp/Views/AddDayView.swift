@@ -73,7 +73,9 @@ struct AddDayView: View {
                             let uiImage = UIImage(data: image)
                             Image(uiImage: uiImage!)
                                 .resizable()
-                                .frame(maxWidth: 360, maxHeight: 260)
+                                .scaledToFit()
+                                .frame(maxWidth: 350, maxHeight: 250)
+                                .clipShape(Rectangle())
                                 .cornerRadius(20)
                                 .padding()
                         } else {

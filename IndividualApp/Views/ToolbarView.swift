@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ToolbarView: View {
     
-    let data: [Day]
+    @Environment(\.modelContext) private var context
+    @Query private var days: [Day]
     
     var body: some View {
         VStack {
@@ -19,7 +21,7 @@ struct ToolbarView: View {
                         Image(systemName: "house")
                         Text("Home")
                     }
-                ChartView(data: data)
+                ChartView(data: days)
                     .tabItem {
                         Image(systemName: "chart.dots.scatter")
                         Text("Chart")
@@ -31,11 +33,5 @@ struct ToolbarView: View {
 }
 
 #Preview {
-    let sampleDays = [
-            Day(date: Date(), emotion: .happy, whatDay: "12", whatMonth: "December", whatYear: "2024", notes: "Great day", dayImage: nil),
-            Day(date: Date().addingTimeInterval(-86400), emotion: .sad, whatDay: "11", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
-            Day(date: Date().addingTimeInterval(-2 * 86400), emotion: .love, whatDay: "10", whatMonth: "December", whatYear: "2024", notes: "Lovely day", dayImage: nil)
-        ]
-    
-    ToolbarView(data: sampleDays)
+    ToolbarView()
 }
