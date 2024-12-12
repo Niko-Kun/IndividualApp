@@ -19,8 +19,9 @@ class Day: Identifiable {
     var whatMonth : String = "December"
     var whatYear : String = "2024"
     var notes : String? = ""
+    var dayImage : Data?
     
-    init(date: Date, emotion: Emotion, whatDay: String, whatMonth: String, whatYear: String, notes: String? = "") {
+    init(date: Date, emotion: Emotion, whatDay: String, whatMonth: String, whatYear: String, notes: String? = "", dayImage: Data?) {
         self.id = UUID()
         self.date = date
         self.emotion = emotion
@@ -28,6 +29,7 @@ class Day: Identifiable {
         self.whatMonth = whatMonth
         self.whatYear = whatYear
         self.notes = notes
+        self.dayImage = dayImage
     }
 }
 
@@ -37,4 +39,19 @@ enum Emotion: String, CaseIterable, Codable {
     case normal = "🙂"
     case happy = "😁"
     case love = "🥰"
+    
+    var numericValue: Int {
+            switch self {
+            case .sad:
+                return 1
+            case .meh:
+                return 2
+            case .normal:
+                return 3
+            case .happy:
+                return 4
+            case .love:
+                return 5
+            }
+        }
 }

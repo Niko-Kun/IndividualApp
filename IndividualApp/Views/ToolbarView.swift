@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ToolbarView: View {
+    
+    let data: [Day]
+    
     var body: some View {
         VStack {
             TabView(selection: .constant(0)) {
@@ -16,7 +19,7 @@ struct ToolbarView: View {
                         Image(systemName: "house")
                         Text("Home")
                     }
-                ChartView()
+                ChartView(data: data)
                     .tabItem {
                         Image(systemName: "chart.dots.scatter")
                         Text("Chart")
@@ -28,5 +31,11 @@ struct ToolbarView: View {
 }
 
 #Preview {
-    ToolbarView()
+    let sampleDays = [
+            Day(date: Date(), emotion: .happy, whatDay: "12", whatMonth: "December", whatYear: "2024", notes: "Great day", dayImage: nil),
+            Day(date: Date().addingTimeInterval(-86400), emotion: .sad, whatDay: "11", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
+            Day(date: Date().addingTimeInterval(-2 * 86400), emotion: .love, whatDay: "10", whatMonth: "December", whatYear: "2024", notes: "Lovely day", dayImage: nil)
+        ]
+    
+    ToolbarView(data: sampleDays)
 }

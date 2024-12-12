@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import PhotosUI
 import Foundation
 
 struct DayDetailsView: View {
@@ -60,7 +61,7 @@ struct DayDetailsView: View {
                             Calendar.current.isDate(day.date, inSameDayAs: selectedDate)
                         }) {
                             days[index].emotion = newValue
-                            // Persisti il cambiamento nel database se necessario
+                            // Update the day into local data
                             do {
                                 try context.save()
                             } catch {
@@ -80,8 +81,8 @@ struct DayDetailsView: View {
                         Calendar.current.isDate(day.date, inSameDayAs: selectedDate)
                     })?.notes ?? "No notes today")
                         .bold()
-                        .multilineTextAlignment(.center) // Allinea il testo al centro
-                        .lineLimit(nil) // Permetti linee multiple
+                        .multilineTextAlignment(.center) // Align text to center
+                        .lineLimit(nil) // Allows multiple lines
                         .padding()
                         .frame(maxWidth: 360, maxHeight: 240)
                 }
@@ -92,10 +93,25 @@ struct DayDetailsView: View {
                         .frame(width: 370, height: 270)
                         .foregroundStyle(Color(.systemGray6))
                     
-                    ImagePickerView()
-                        .disabled(true)
+                    if let image = days.first(where: { day in
+                        Calendar.current.isDate(day.date, inSameDayAs: selectedDate)
+                    })?.dayImage {
+                            let uiImage = UIImage(data: image)
+                            Image(uiImage: uiImage!)
+                                .resizable()
+                                .frame(maxWidth: 360, maxHeight: 260)
+                                .accessibilityLabel("User Image")
+                                .clipShape(Rectangle())
+                                .cornerRadius(20)
+                        } else {
+                            Image(systemName: "plus.circle")
+                                .resizable()
+                                .foregroundStyle(.black)
+                                .frame(width: 100, height: 100)
+                                .accessibilityLabel("No Image")
+                        }
+                        
                 }
-                
                 Spacer()
             }
         }

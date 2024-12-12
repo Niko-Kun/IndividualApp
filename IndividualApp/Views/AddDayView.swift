@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import PhotosUI
 
 struct AddDayView: View {
     
@@ -18,6 +19,8 @@ struct AddDayView: View {
     @State private var whatMonth : String = ""
     @State private var whatYear : String = ""
     @State private var notes : String = ""
+    @State private var dayImageData : Data?
+    @State private var dayImage : PhotosPickerItem?
     
     @State private var selectedMood: Emotion = .normal
     
@@ -26,7 +29,6 @@ struct AddDayView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                
                 Text("Talk about your Day!")
                     .font(.title2)
                     .bold()
@@ -62,12 +64,30 @@ struct AddDayView: View {
                 ZStack {
                     Rectangle()
                         .cornerRadius(20)
-                        .frame(width: 370, height: 300)
+                        .frame(width: 370, height: 270)
                         .foregroundStyle(Color(.systemGray6))
                     
-                    ImagePickerView()
-                        .accessibilityLabel("Add an Image (optional)")
+                    PhotosPicker(selection: $dayImage,
+                                 matching: .images, photoLibrary: .shared()) {
+                        if let image = dayImageData {
+                            let uiImage = UIImage(data: image)
+                            Image(uiImage: uiImage!)
+                                .resizable()
+                                .frame(maxWidth: 360, maxHeight: 260)
+                                .cornerRadius(20)
+                                .padding()
+                        } else {
+                            Image(systemName: "plus.circle")
+                                .resizable()
+                                .foregroundStyle(.black)
+                                .frame(width: 100, height: 100)
+                        }
+                    }
+                    .accessibilityLabel("Add an Image (optional)")
                 }
+
+                Spacer()
+                
             }.onAppear {
                 let currentDate = Date()
                 let calendar = Calendar.current
@@ -88,6 +108,11 @@ struct AddDayView: View {
                 }
             }
         }
+        .task(id: dayImage) {
+            if let data = try? await dayImage?.loadTransferable(type: Data.self) {
+                dayImageData = data
+            }
+        }
     }
     
     func addDay() {
@@ -97,26 +122,47 @@ struct AddDayView: View {
         components.month = Int(whatMonth)
         components.year = Int(whatYear)
         
-        let dayDate = calendar.date(from: components)
+        let dayDate = calendar.date(from: components) ?? Date()
         
-        // Create the variable
-        let newDay = Day(
-            date: dayDate ?? Date(),
-            emotion: selectedMood,
-            whatDay: whatDay,
-            whatMonth: whatMonth,
-            whatYear: whatYear,
-            notes: notes)
+        let fetchDescriptor = FetchDescriptor<Day>()
         
-        // Add to the local data
-        context.insert(newDay)
-//        print("Day added")
-//        print("Day", whatDay)
-//        print("Month:", whatMonth)
-//        print("Year: ", whatYear)
+        // Retrieve existing data
+        if let existingDay = try? context.fetch(fetchDescriptor).first(where: {
+            Calendar.current.isDate($0.date, inSameDayAs: dayDate)
+        }) {
+            // Update instance
+            existingDay.emotion = selectedMood
+            existingDay.notes = notes
+            existingDay.dayImage = dayImageData
+        } else {
+            // If not existing, create a new day
+            let newDay = Day(
+                date: dayDate,
+                emotion: selectedMood,
+                whatDay: whatDay,
+                whatMonth: whatMonth,
+                whatYear: whatYear,
+                notes: notes,
+                dayImage: dayImageData
+            )
+            context.insert(newDay)
+        }
+        
+        // Saving
+        do {
+            try context.save()
+            print("Dati aggiornati o aggiunti con successo")
+        } catch {
+            print("Errore durante il salvataggio dei dati: \(error)")
+        }
     }
     
+    //        print("Day added")
+    //        print("Day:", whatDay)
+    //        print("Month:", whatMonth)
+    //        print("Year: ", whatYear)
 }
+
 
 #Preview {
     AddDayView(showModal: .constant(true))
