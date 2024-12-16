@@ -21,6 +21,12 @@ struct ChartView: View {
                     Text("There is no data. Try adding some new day!")
                     Spacer()
             } else {
+                ZStack {
+                    
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(width: 370, height: 300)
+                        .foregroundStyle(Color(.systemGray6))
+                    
                     VStack {
                         Text("Line Chart")
                         
@@ -30,12 +36,20 @@ struct ChartView: View {
                                 y: .value("Emotion", day.emotion.numericValue)
                             )
                         }
+                        .accessibilityLabel("Chart")
                         .chartYAxisLabel("Emotion Level")
                         .chartXAxisLabel("Date")
                         .frame(width: 350, height: 250)
                         .foregroundStyle(.purple)
                     }
                     .frame(width: 370, height: 350)
+                }
+                    
+                ZStack {
+                    
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(width: 370, height: 300)
+                        .foregroundStyle(Color(.systemGray6))
                     
                     VStack {
                         Text("Bar Chart")
@@ -47,11 +61,13 @@ struct ChartView: View {
                             )
                             .foregroundStyle(by: .value("Emotion", day.emotion.rawValue))
                         }
+                        .accessibilityLabel("Chart")
                         .chartYAxisLabel("Emotion Level")
                         .chartXAxisLabel("Date")
                         .frame(width: 350, height: 250)
                     }
                     .frame(width: 370, height: 350)
+                }
                     
                     Spacer()
                 }
@@ -73,7 +89,7 @@ struct ChartView: View {
             Day(date: Date().addingTimeInterval(8*86400), emotion: .sad, whatDay: "14", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
             Day(date: Date().addingTimeInterval(9*86400), emotion: .normal, whatDay: "15", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
             Day(date: Date().addingTimeInterval(10*86400), emotion: .meh, whatDay: "13", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
-            Day(date: Date().addingTimeInterval(11*86400), emotion: .sad, whatDay: "14", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
+            Day(date: Date().addingTimeInterval(11*86400), emotion: .love, whatDay: "14", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
             Day(date: Date().addingTimeInterval(12*86400), emotion: .normal, whatDay: "15", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
             
         ]

@@ -16,5 +16,6 @@ struct IndividualAppApp: App {
                 .preferredColorScheme(.light)
         }
         .modelContainer(for: Day.self)
+//        .modelContainer(for: Streak.self)
     }
 }
