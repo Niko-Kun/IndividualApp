@@ -80,7 +80,7 @@ struct ChartView: View {
     let sampleDays = [
             Day(date: Date(), emotion: .happy, whatDay: "11", whatMonth: "December", whatYear: "2024", notes: "Great day", dayImage: nil),
             Day(date: Date().addingTimeInterval(86400), emotion: .love, whatDay: "12", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
-            Day(date: Date().addingTimeInterval(2*86400), emotion: .meh, whatDay: "13", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
+            Day(date: Date().addingTimeInterval(2*86400), emotion: .sad, whatDay: "13", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
             Day(date: Date().addingTimeInterval(3*86400), emotion: .sad, whatDay: "14", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
             Day(date: Date().addingTimeInterval(4*86400), emotion: .normal, whatDay: "15", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
             Day(date: Date().addingTimeInterval(5*86400), emotion: .meh, whatDay: "13", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
@@ -88,7 +88,7 @@ struct ChartView: View {
             Day(date: Date().addingTimeInterval(7*86400), emotion: .normal, whatDay: "15", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
             Day(date: Date().addingTimeInterval(8*86400), emotion: .sad, whatDay: "14", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
             Day(date: Date().addingTimeInterval(9*86400), emotion: .normal, whatDay: "15", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
-            Day(date: Date().addingTimeInterval(10*86400), emotion: .meh, whatDay: "13", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
+            Day(date: Date().addingTimeInterval(10*86400), emotion: .sad, whatDay: "13", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
             Day(date: Date().addingTimeInterval(11*86400), emotion: .love, whatDay: "14", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
             Day(date: Date().addingTimeInterval(12*86400), emotion: .normal, whatDay: "15", whatMonth: "December", whatYear: "2024", notes: "Bad day", dayImage: nil),
             
