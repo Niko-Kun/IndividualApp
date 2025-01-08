@@ -73,6 +73,7 @@ struct ChartView: View {
                 }
             }
         }
+        .scrollIndicators(.hidden)
     }
 }
 
